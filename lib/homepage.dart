@@ -43,17 +43,22 @@ class HomePage extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xFF7B67FD)),
                           foregroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xFFFFFFFF)),
+                              const Color(0xFFFFFFFF)),
                           padding: MaterialStateProperty.all<EdgeInsets>(
                               const EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 12))),
                       child: Row(
                         children: const [
-                          Image(image: AssetImage("assets/images/support.png")),
+                          Image(
+                              image: AssetImage("assets/images/support.png"),
+                              width: 18),
                           SizedBox(
                             width: 8,
                           ),
-                          Text("Support Us"),
+                          Text("Support Us",
+                              style: TextStyle(
+                                fontSize: 16,
+                              )),
                         ],
                       ))
                 ],

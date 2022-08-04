@@ -21,6 +21,7 @@ class TopAppBar extends StatelessWidget {
         Container(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Image(
                   image: AssetImage("assets/images/logo.png"),
@@ -33,33 +34,33 @@ class TopAppBar extends StatelessWidget {
                   "Wordlys",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
-                TextButton(
-                    onPressed: handleSupportUsClick,
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(HIGHLIGHT)),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            const Color(HIGHLIGHT_TEXT)),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 12))),
-                    child: Row(
-                      children: const [
-                        Image(
-                            image: AssetImage("assets/images/support.png"),
-                            width: 20),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Text("Support Us",
-                            style: TextStyle(
-                              fontSize: 16,
-                            )),
-                      ],
-                    ))
+                // const Expanded(
+                //   child: SizedBox(),
+                // ),
+                // TextButton(
+                //     onPressed: handleSupportUsClick,
+                //     style: ButtonStyle(
+                //         backgroundColor: MaterialStateProperty.all<Color>(
+                //             const Color(HIGHLIGHT)),
+                //         foregroundColor: MaterialStateProperty.all<Color>(
+                //             const Color(HIGHLIGHT_TEXT)),
+                //         padding: MaterialStateProperty.all<EdgeInsets>(
+                //             const EdgeInsets.symmetric(
+                //                 vertical: 8, horizontal: 12))),
+                //     child: Row(
+                //       children: const [
+                //         Image(
+                //             image: AssetImage("assets/images/support.png"),
+                //             width: 20),
+                //         SizedBox(
+                //           width: 6,
+                //         ),
+                //         Text("Support Us",
+                //             style: TextStyle(
+                //               fontSize: 16,
+                //             )),
+                //       ],
+                //     ))
               ],
             )),
         Container(

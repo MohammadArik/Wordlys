@@ -1,12 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 // State of the
 enum DataState { Empty, Loading, Ready, NotFound }
 
 class WordData {
   DataState state = DataState.Empty;
-  var mainWord = "";
+  List<dynamic> wordData = <dynamic>[];
 }
 
 class APIHandler {
@@ -21,7 +23,7 @@ class APIHandler {
   Timer _reqLimitTimer = Timer(Duration(microseconds: 300), (() {}));
 
   // The variable to store WordData
-  WordData data = WordData();
+  WordData _data = WordData();
 
   //? To dispose the controllers and remove listener
   void dispose() {
@@ -37,10 +39,37 @@ class APIHandler {
 
   //? High level function to update state
   void _updateState(DataState state) {
-    if (data.state != state) {
-      data.state = state;
-      _dataStreamController.sink.add(data);
+    if (_data.state != state) {
+      _data.state = state;
+      _dataStreamController.sink.add(_data);
     }
+  }
+
+  //? Function to request and parse data from the API
+  Future<void> _callAPIandParseData(String word) async {
+    // try {
+    //* Request the api
+    print("Requesting: " + word);
+    var url = Uri.https('api.dictionaryapi.dev', 'api/v2/entries/en/' + word);
+    var res = await get(url);
+
+    //* Validate the result
+    // Check if the word was found or not
+    if (res.statusCode == 404) {
+      _updateState(DataState.NotFound);
+      return;
+    }
+    // parse the data
+    var decodedResponse =
+        jsonDecode(utf8.decode(res.bodyBytes))[0]['meanings'] as List<dynamic>;
+    print(decodedResponse);
+
+    // Update the data
+    _data.wordData = decodedResponse;
+    _data.state = DataState.Ready;
+    // Sink the data to the StreamController
+    _dataStreamController.sink.add(_data);
+    // } catch (_) {}
   }
 
   //? The function to handle userInputs
@@ -70,14 +99,8 @@ class APIHandler {
     _updateState(DataState.Loading);
 
     // Initialize the _reqLimitTimer to request after 300ms only if inputString is not empty
-    _reqLimitTimer = Timer(const Duration(milliseconds: 300), (() {
-      // Request the api
-      // Validate the result
-      // Update the data
-      data.mainWord = inputString;
-      data.state = DataState.Ready;
-      // Sink the data to the StreamController
-      _dataStreamController.sink.add(data);
+    _reqLimitTimer = Timer(const Duration(milliseconds: 300), (() async {
+      await _callAPIandParseData(inputString);
     }));
   }
 }

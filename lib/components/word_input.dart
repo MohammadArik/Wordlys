@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wordlys/bloc/api_handler.dart';
 
 class WordInput extends StatelessWidget {
-  const WordInput({Key? key}) : super(key: key);
+  static late APIHandler apiHandler;
+
+  WordInput({required APIHandler handler}) {
+    apiHandler = handler;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class WordInput extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
-                // controller: ,
+                controller: apiHandler.textFieldController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),

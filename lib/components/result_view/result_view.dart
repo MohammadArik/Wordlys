@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wordlys/bloc/api_handler.dart';
 import 'package:wordlys/const/colors.dart';
 
@@ -25,12 +26,10 @@ class ResultView extends StatelessWidget {
             if (data != null && data.state != DataState.Empty) {
               //* Check if loading
               if (data.state == DataState.Loading) {
-                return Text(
-                  "Loading...",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(PRIMARY_TEXT),
-                    fontSize: 15,
+                return Center(
+                  child: LoadingAnimationWidget.stretchedDots(
+                    color: Color(HIGHLIGHT),
+                    size: 120,
                   ),
                 );
               }

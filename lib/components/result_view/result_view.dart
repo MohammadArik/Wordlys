@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wordlys/bloc/api_handler.dart';
+import 'package:wordlys/components/result_view/meaning_block.dart';
 import 'package:wordlys/const/colors.dart';
 
 class ResultView extends StatelessWidget {
@@ -22,7 +22,6 @@ class ResultView extends StatelessWidget {
           builder: ((context, snapshot) {
             var data = snapshot.data;
 
-            print(data);
             if (data != null && data.state != DataState.Empty) {
               //* Check if loading
               if (data.state == DataState.Loading) {
@@ -49,7 +48,14 @@ class ResultView extends StatelessWidget {
               //* It is now surely ready
 
               // TODO do stuff with the data (not implemented yet)
-              return Text("Result Data: " + data.mainWord);
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text("Click on the synonyms and antonyms to copy!"),
+                  const MeaningBlock(),
+                ],
+              );
             }
 
             return SizedBox();

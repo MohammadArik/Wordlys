@@ -3,11 +3,8 @@ import 'package:wordlys/bloc/api_handler.dart';
 import 'package:wordlys/const/colors.dart';
 
 class WordInput extends StatelessWidget {
-  static late APIHandler apiHandler;
-
-  WordInput({required APIHandler handler}) {
-    apiHandler = handler;
-  }
+  const WordInput({required this.apiHandler});
+  final APIHandler apiHandler;
 
   @override
   Widget build(BuildContext context) {

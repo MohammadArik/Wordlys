@@ -18,10 +18,10 @@ class HomePage extends StatelessWidget {
         children: [
           const TopAppBar(),
           WordInput(
-            handler: apiHandler,
+            apiHandler: apiHandler,
           ),
           ResultView(
-            handler: apiHandler,
+            apiHandler: apiHandler,
           ),
         ],
       )),

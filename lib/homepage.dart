@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordlys/bloc/api_handler.dart';
+import 'package:wordlys/components/result_view.dart';
 import 'package:wordlys/components/top_appbar.dart';
 import 'package:wordlys/components/word_input.dart';
 
@@ -18,7 +19,10 @@ class HomePage extends StatelessWidget {
           const TopAppBar(),
           WordInput(
             handler: apiHandler,
-          )
+          ),
+          ResultView(
+            handler: apiHandler,
+          ),
         ],
       )),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordlys/bloc/api_handler.dart';
+import 'package:wordlys/const/colors.dart';
 
 class WordInput extends StatelessWidget {
   static late APIHandler apiHandler;
@@ -13,7 +14,7 @@ class WordInput extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-        color: const Color(0xFFF1F1F1),
+        color: const Color(PRIMARY),
         alignment: Alignment.topLeft,
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -33,7 +34,7 @@ class WordInput extends StatelessWidget {
                 ),
                 style: const TextStyle(
                   fontSize: 18,
-                  color: Color(0xFF1E1E1E),
+                  color: Color(PRIMARY_TEXT),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -43,7 +44,7 @@ class WordInput extends StatelessWidget {
                 onPressed: (() {}),
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xFF7B67FD)),
+                      MaterialStateProperty.all<Color>(Color(HIGHLIGHT)),
                   padding:
                       MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(17)),
                 ),

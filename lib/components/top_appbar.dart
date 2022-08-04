@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wordlys/const/colors.dart';
 
 final Uri supportUri = Uri.parse('https://www.buymeacoffee.com/wordlys');
 
@@ -39,9 +40,9 @@ class TopAppBar extends StatelessWidget {
                     onPressed: handleSupportUsClick,
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFF7B67FD)),
+                            const Color(HIGHLIGHT)),
                         foregroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFFFFFFFF)),
+                            const Color(HIGHLIGHT_TEXT)),
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 12))),
@@ -63,12 +64,12 @@ class TopAppBar extends StatelessWidget {
             )),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: const Color(0xFF7B67FD),
+            color: const Color(HIGHLIGHT),
             child: const Text(
               "Simple word definition, antonyms & synonyms finder!",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xFFFFFFFF),
+                color: Color(HIGHLIGHT_TEXT),
                 fontSize: 16,
               ),
             ))

@@ -21,7 +21,6 @@ class WordsSection extends StatelessWidget {
             Clipboard.setData(ClipboardData(text: word));
           }),
           child: Container(
-            // onPress
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             margin: EdgeInsets.fromLTRB(0, 4, 8, 4),
             decoration: BoxDecoration(

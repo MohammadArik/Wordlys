@@ -46,15 +46,41 @@ class ResultView extends StatelessWidget {
               }
 
               //* It is now surely ready
+              // Parse the meaning-data and create MeaningBlock(s)
+              var meaningWidgets = <Widget>[];
 
-              // TODO do stuff with the data (not implemented yet)
+              for (var meaningBlock in data.meaningBlocksData) {
+                var partOfSpeech = meaningBlock["partOfSpeech"] as String;
+                var synonyms = meaningBlock["synonyms"] as List<dynamic>;
+                var antonyms = meaningBlock["antonyms"] as List<dynamic>;
+
+                var definitions = <String>[];
+                for (var definition in meaningBlock["definitions"]) {
+                  definitions.add(definition["definition"] as String);
+                }
+
+                meaningWidgets.add(MeaningBlock(
+                    definitions: definitions,
+                    antonyms: antonyms,
+                    synonyms: synonyms,
+                    partOfSpeech: partOfSpeech));
+              }
 
               return SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text("Click on the synonyms and antonyms to copy!"),
-                    const MeaningBlock(),
+                    const Text(
+                      "Click to copy the synonyms and antonyms!",
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    ...meaningWidgets,
+                    // TODO add sources container
                   ],
                 ),
               );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wordlys/bloc/api_handler.dart';
 import 'package:wordlys/components/result_view/meaning_block.dart';
+import 'package:wordlys/components/result_view/sources_object.dart';
 import 'package:wordlys/const/colors.dart';
 
 class ResultView extends StatelessWidget {
@@ -79,8 +80,8 @@ class ResultView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    ...meaningWidgets,
-                    // TODO add sources container
+                    ...meaningWidgets, // MeaningObject(s)
+                    SourcesObject(sources: data.sources)
                   ],
                 ),
               );

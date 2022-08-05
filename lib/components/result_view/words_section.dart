@@ -9,11 +9,6 @@ class WordsSection extends StatelessWidget {
   final List<String> wordList;
   final WordType type;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final blockColorNum = type == WordType.Synonym ? HIGHLIGHT : 0xFF0957B7;

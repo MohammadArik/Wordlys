@@ -9,7 +9,7 @@ enum DataState { Empty, Loading, Ready, NotFound }
 class WordData {
   DataState state = DataState.Empty;
   List<dynamic> meaningBlocksData = <dynamic>[];
-  List<String> sources = <String>[];
+  List<dynamic> sources = <dynamic>[];
 }
 
 class APIHandler {
@@ -64,11 +64,10 @@ class APIHandler {
     }
     // parse the data
     var decodedResponse = jsonDecode(utf8.decode(res.bodyBytes))[0];
-    // print(decodedResponse);
 
     // Update the data
     _data.meaningBlocksData = decodedResponse['meanings'] as List<dynamic>;
-    _data.sources = decodedResponse['sourceUrls'] as List<String>;
+    _data.sources = decodedResponse['sourceUrls'] as List<dynamic>;
     _data.state = DataState.Ready;
     // Sink the data to the StreamController
     _dataStreamController.sink.add(_data);

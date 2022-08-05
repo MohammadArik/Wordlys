@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordlys/components/result_view/words_section.dart';
 import 'package:wordlys/const/colors.dart';
 
 class MeaningBlock extends StatefulWidget {
@@ -41,7 +42,7 @@ class _MeaningBlockState extends State<MeaningBlock> {
                   "noun",
                   style: TextStyle(
                     color: Color(HIGHLIGHT),
-                    fontSize: 15,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -70,20 +71,25 @@ class _MeaningBlockState extends State<MeaningBlock> {
           isExpanded
               ? Column(
                   children: [
-                    SizedBox(height: 8),
-                    wordsSection([
-                      "Word 1",
-                      "Word 2",
-                      "Word 3",
-                      "Word 4",
-                    ], WordType.Synonym),
-                    SizedBox(height: 8),
-                    wordsSection([
-                      "Word 1",
-                      "Word 2",
-                      "Word 3",
-                      "Word 4",
-                    ], WordType.Antonym)
+                    const WordsSection(
+                      wordList: [
+                        "Word 1",
+                        "Word 2",
+                        "Word 3",
+                        "Word 4",
+                      ],
+                      type: WordType.Synonym,
+                    ),
+                    const WordsSection(
+                      wordList: [
+                        "Word 1",
+                        "Word 2",
+                        "Word 3",
+                        "Word 4",
+                      ],
+                      type: WordType.Antonym,
+                    ),
+                    definition("lorem ipsum dolor sit amet benir upit"),
                   ],
                 )
               : SizedBox()

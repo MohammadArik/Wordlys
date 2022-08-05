@@ -82,6 +82,8 @@ class APIHandler {
       _reqLimitTimer.cancel();
     }
 
+    // TODO Do nothing if the input hasn't changed
+
     // return if the inputString is empty
     inputString = inputString.trim();
     if (inputString == "") {

@@ -25,6 +25,9 @@ class APIHandler {
   // The variable to store WordData
   WordData _data = WordData();
 
+  // To store the last word handled
+  String prevWord = "";
+
   //? To dispose the controllers and remove listener
   void dispose() {
     _dataStreamController.close();
@@ -49,7 +52,6 @@ class APIHandler {
   Future<void> _callAPIandParseData(String word) async {
     // try {
     //* Request the api
-    print("Requesting: " + word);
     var url = Uri.https('api.dictionaryapi.dev', 'api/v2/entries/en/' + word);
     var res = await get(url);
 
@@ -62,7 +64,7 @@ class APIHandler {
     // parse the data
     var decodedResponse =
         jsonDecode(utf8.decode(res.bodyBytes))[0]['meanings'] as List<dynamic>;
-    print(decodedResponse);
+    // print(decodedResponse);
 
     // Update the data
     _data.wordData = decodedResponse;
@@ -77,12 +79,16 @@ class APIHandler {
     // Get the value
     var inputString = textFieldController.text;
 
+    // Do nothing if the input hasn't changed
+    if (inputString == prevWord) {
+      return;
+    }
+    prevWord = inputString;
+
     // If 300ms not passed after the previous input cancel the previous _reqLimitTimer
     if (_reqLimitTimer.isActive) {
       _reqLimitTimer.cancel();
     }
-
-    // TODO Do nothing if the input hasn't changed
 
     // return if the inputString is empty
     inputString = inputString.trim();

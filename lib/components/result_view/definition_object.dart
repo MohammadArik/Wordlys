@@ -27,7 +27,7 @@ class DefinitionObject extends StatelessWidget {
             TextSpan(
               text: "Definition: ",
               style: TextStyle(
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w600,
               ),
             ),
             TextSpan(

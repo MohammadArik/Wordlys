@@ -79,7 +79,7 @@ class ResultView extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 4),
                     ...meaningWidgets, // MeaningObject(s)
                     SourcesObject(sources: data.sources)
                   ],

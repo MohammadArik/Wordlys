@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("I am rendered");
     return Scaffold(
       body: SafeArea(
           child: Column(

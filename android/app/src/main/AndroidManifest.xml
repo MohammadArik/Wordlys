@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.wordlys.app.wordlys">
    <application
-        android:label="wordlys"
+        android:label="Wordlys"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/app_icon"
+        android:appCategory="accessibility"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true"

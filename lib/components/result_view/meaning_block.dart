@@ -4,7 +4,16 @@ import 'package:wordlys/const/colors.dart';
 import 'definition_object.dart';
 
 class MeaningBlock extends StatefulWidget {
-  const MeaningBlock({Key? key}) : super(key: key);
+  final List<String> definitions;
+  final List<dynamic> synonyms;
+  final List<dynamic> antonyms;
+  final String partOfSpeech;
+
+  const MeaningBlock(
+      {required this.definitions,
+      required this.antonyms,
+      required this.synonyms,
+      required this.partOfSpeech});
 
   @override
   State<MeaningBlock> createState() => _MeaningBlockState();
@@ -15,6 +24,12 @@ class _MeaningBlockState extends State<MeaningBlock> {
 
   @override
   Widget build(BuildContext context) {
+    var definitionObjects = <Widget>[];
+
+    for (var definition in widget.definitions) {
+      definitionObjects.add(DefinitionObject(definition: definition));
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(16),
@@ -41,7 +56,7 @@ class _MeaningBlockState extends State<MeaningBlock> {
                   ),
                 ),
                 child: Text(
-                  "noun",
+                  widget.partOfSpeech,
                   style: TextStyle(
                     color: Color(HIGHLIGHT),
                     fontSize: 16,
@@ -73,27 +88,19 @@ class _MeaningBlockState extends State<MeaningBlock> {
           isExpanded
               ? Column(
                   children: [
-                    const WordsSection(
-                      wordList: [
-                        "Word 1",
-                        "Word 2",
-                        "Word 3",
-                        "Word 4",
-                      ],
-                      type: WordType.Synonym,
-                    ),
-                    const WordsSection(
-                      wordList: [
-                        "Word 1",
-                        "Word 2",
-                        "Word 3",
-                        "Word 4",
-                      ],
-                      type: WordType.Antonym,
-                    ),
-                    DefinitionObject(
-                      definition: "lorem ipsum dolor sit amet benir upit",
-                    ),
+                    widget.synonyms.length > 0
+                        ? WordsSection(
+                            wordList: widget.synonyms,
+                            type: WordType.Synonym,
+                          )
+                        : SizedBox(),
+                    widget.antonyms.length > 0
+                        ? WordsSection(
+                            wordList: widget.antonyms,
+                            type: WordType.Antonym,
+                          )
+                        : SizedBox(),
+                    ...definitionObjects, // Definition objects
                   ],
                 )
               : SizedBox()

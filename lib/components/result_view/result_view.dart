@@ -49,12 +49,14 @@ class ResultView extends StatelessWidget {
 
               // TODO do stuff with the data (not implemented yet)
 
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text("Click on the synonyms and antonyms to copy!"),
-                  const MeaningBlock(),
-                ],
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("Click on the synonyms and antonyms to copy!"),
+                    const MeaningBlock(),
+                  ],
+                ),
               );
             }
 

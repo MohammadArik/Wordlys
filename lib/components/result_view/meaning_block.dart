@@ -9,6 +9,8 @@ class MeaningBlock extends StatefulWidget {
 }
 
 class _MeaningBlockState extends State<MeaningBlock> {
+  bool isExpanded = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +39,25 @@ class _MeaningBlockState extends State<MeaningBlock> {
                 ),
               ),
               Expanded(child: SizedBox()), // spacing to push button to the side
-              TextButton(onPressed: (() {}), child: Text("^"))
+              IconButton(
+                onPressed: (() {
+                  setState(() {
+                    isExpanded = !isExpanded;
+                  });
+                }),
+                icon: isExpanded
+                    ? Image.asset(
+                        "assets/images/downArrow.png",
+                        width: 18,
+                      )
+                    : Image.asset(
+                        "assets/images/upArrow.png",
+                        width: 18,
+                      ),
+                color: Color(0xFFEEEEEE),
+                splashColor: Color(0xFFEEEEEE),
+                padding: EdgeInsets.all(4),
+              ),
             ],
           )
         ],

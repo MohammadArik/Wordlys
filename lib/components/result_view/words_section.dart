@@ -6,7 +6,7 @@ enum WordType { Synonym, Antonym }
 
 class WordsSection extends StatelessWidget {
   const WordsSection({required this.wordList, required this.type});
-  final List<String> wordList;
+  final List<dynamic> wordList;
   final WordType type;
 
   @override

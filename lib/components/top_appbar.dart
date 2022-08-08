@@ -22,15 +22,15 @@ class TopAppBar extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Image(
+              children: const <Widget>[
+                Image(
                   image: AssetImage("assets/images/logo.png"),
                   width: 48,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 8,
                 ),
-                const Text(
+                Text(
                   "Wordlys",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
@@ -66,8 +66,9 @@ class TopAppBar extends StatelessWidget {
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             color: const Color(HIGHLIGHT),
+            width: Size.infinite.width,
             child: const Text(
-              "Simple word definition, antonyms & synonyms finder!",
+              "Simple word definition, synonyms\n& antonyms finder!",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(HIGHLIGHT_TEXT),

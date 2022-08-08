@@ -2,23 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import '../models/word_data.dart';
 
-// State of the
-enum DataState { Empty, Loading, Ready, NotFound }
-
-class WordData {
-  DataState state = DataState.Empty;
-  List<dynamic> meaningBlocksData = <dynamic>[];
-  List<dynamic> sources = <dynamic>[];
-}
-
-class APIHandler {
+class APIHandler with ChangeNotifier {
   // The TextEditingController for handling input changes
-  final textFieldController = TextEditingController();
-
-  // The StreamController to pass data
-  final _dataStreamController = StreamController<WordData>();
-  Stream<WordData> get getData => _dataStreamController.stream;
+  final TextEditingController textFieldController = TextEditingController();
 
   // The _reqLimitTimer to thorttle API calls
   Timer _reqLimitTimer = Timer(Duration(microseconds: 300), (() {}));
@@ -26,52 +14,32 @@ class APIHandler {
   // The variable to store WordData
   WordData _data = WordData();
 
+  WordData get data => _data;
+
   // To store the last word handled
   String prevWord = "";
+  // To store the current active request
+  int reqID = 0;
 
   //? To dispose the controllers and remove listener
+  @override
   void dispose() {
-    _dataStreamController.close();
     textFieldController.removeListener(_listenToUpdates);
     textFieldController.dispose();
+    super.dispose();
   }
 
-  //? the constructor function;
   APIHandler() {
     textFieldController.addListener(_listenToUpdates);
+    _updateState(DataState.Empty);
   }
 
   //? High level function to update state
   void _updateState(DataState state) {
     if (_data.state != state) {
       _data.state = state;
-      _dataStreamController.sink.add(_data);
+      notifyListeners();
     }
-  }
-
-  //? Function to request and parse data from the API
-  Future<void> _callAPIandParseData(String word) async {
-    // try {
-    //* Request the api
-    var url = Uri.https('api.dictionaryapi.dev', 'api/v2/entries/en/' + word);
-    var res = await get(url);
-
-    //* Validate the result
-    // Check if the word was found or not
-    if (res.statusCode == 404) {
-      _updateState(DataState.NotFound);
-      return;
-    }
-    // parse the data
-    var decodedResponse = jsonDecode(utf8.decode(res.bodyBytes))[0];
-
-    // Update the data
-    _data.meaningBlocksData = decodedResponse['meanings'] as List<dynamic>;
-    _data.sources = decodedResponse['sourceUrls'] as List<dynamic>;
-    _data.state = DataState.Ready;
-    // Sink the data to the StreamController
-    _dataStreamController.sink.add(_data);
-    // } catch (_) {}
   }
 
   //? The function to handle userInputs
@@ -107,8 +75,46 @@ class APIHandler {
     _updateState(DataState.Loading);
 
     // Initialize the _reqLimitTimer to request after 300ms only if inputString is not empty
+    reqID++;
     _reqLimitTimer = Timer(const Duration(milliseconds: 300), (() async {
-      await _callAPIandParseData(inputString);
+      await _callAPIandParseData(inputString, reqID);
     }));
+  }
+
+  //? Function to request and parse data from the API
+  Future<void> _callAPIandParseData(String word, int id) async {
+    try {
+      // Making the id final
+      final rID = id;
+      //* Request the api
+      var url = Uri.https('api.dictionaryapi.dev', 'api/v2/entries/en/' + word);
+      var res = await get(url);
+
+      //* Check if this is the current request
+      if (rID == this.reqID) {
+        //* Validate the result
+        // Check if the word was found or not
+        if (res.statusCode == 404) {
+          _updateState(DataState.NotFound);
+          return;
+        }
+        if (res.statusCode == 200) {
+          // parse the data
+          var decodedResponse = jsonDecode(utf8.decode(res.bodyBytes))[0];
+
+          // Update the data
+          _data.meaningBlocksData =
+              decodedResponse['meanings'] as List<dynamic>;
+          _data.sources = decodedResponse['sourceUrls'] as List<dynamic>;
+          _data.state = DataState.Ready;
+          // notify the listeners about the change
+          notifyListeners();
+        } else {
+          _updateState(DataState.Error);
+        }
+      }
+    } catch (_) {
+      _updateState(DataState.NotFound);
+    }
   }
 }

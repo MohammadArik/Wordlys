@@ -31,12 +31,12 @@ class _MeaningBlockState extends State<MeaningBlock> {
     }
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: const Color(0xFFFFFFFF),
         border: Border.all(
-          color: Color(BORDER),
+          color: const Color(BORDER),
           width: 1,
         ),
       ),
@@ -46,9 +46,9 @@ class _MeaningBlockState extends State<MeaningBlock> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.fromLTRB(12, 6, 12, 8),
+                padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  borderRadius: const BorderRadius.all(Radius.circular(50)),
                   border: Border.all(
                     color: Color(HIGHLIGHT),
                     style: BorderStyle.solid,
@@ -57,13 +57,14 @@ class _MeaningBlockState extends State<MeaningBlock> {
                 ),
                 child: Text(
                   widget.partOfSpeech,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(HIGHLIGHT),
                     fontSize: 16,
                   ),
                 ),
               ),
-              Expanded(child: SizedBox()), // spacing to push button to the side
+              const Expanded(
+                  child: SizedBox()), // spacing to push button to the side
               IconButton(
                 onPressed: (() {
                   setState(() {
@@ -79,31 +80,31 @@ class _MeaningBlockState extends State<MeaningBlock> {
                         "assets/images/upArrow.png",
                         width: 18,
                       ),
-                color: Color(BORDER),
-                splashColor: Color(BORDER),
-                padding: EdgeInsets.all(4),
+                color: const Color(BORDER),
+                splashColor: const Color(BORDER),
+                padding: const EdgeInsets.all(4),
               ),
             ],
           ),
           isExpanded
               ? Column(
                   children: [
-                    widget.synonyms.length > 0
+                    widget.synonyms.isNotEmpty
                         ? WordsSection(
                             wordList: widget.synonyms,
                             type: WordType.Synonym,
                           )
-                        : SizedBox(),
-                    widget.antonyms.length > 0
+                        : const SizedBox(),
+                    widget.antonyms.isNotEmpty
                         ? WordsSection(
                             wordList: widget.antonyms,
                             type: WordType.Antonym,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                     ...definitionObjects, // Definition objects
                   ],
                 )
-              : SizedBox()
+              : const SizedBox()
         ],
       ),
     );

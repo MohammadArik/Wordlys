@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordlys/bloc/api_handler.dart';
 import 'package:wordlys/homepage.dart';
 
 void main() {
@@ -11,12 +13,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Wordlys',
-      theme: ThemeData(
-        fontFamily: "Poppins",
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => NewAPIHandler())],
+      child: MaterialApp(
+        title: 'Wordlys',
+        theme: ThemeData(
+          fontFamily: "Poppins",
+        ),
+        home: HomePage(),
       ),
-      home: HomePage(),
     );
   }
 }

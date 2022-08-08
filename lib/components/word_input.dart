@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wordlys/bloc/api_handler.dart';
 import 'package:wordlys/const/colors.dart';
 
 class WordInput extends StatelessWidget {
-  const WordInput({required this.apiHandler});
-  final APIHandler apiHandler;
+  const WordInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class WordInput extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              controller: apiHandler.textFieldController,
+              controller: context.read<APIHandler>().textFieldController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -37,18 +37,19 @@ class WordInput extends StatelessWidget {
           ),
           SizedBox(width: 8),
           TextButton(
-              onPressed: (() {}),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Color(HIGHLIGHT)),
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(17)),
-              ),
-              child: Image(
-                image: AssetImage("assets/images/search.png"),
-                width: 25,
-                height: 25,
-              )),
+            onPressed: (() {}),
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Color(HIGHLIGHT)),
+              padding:
+                  MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(17)),
+            ),
+            child: Image(
+              image: AssetImage("assets/images/search.png"),
+              width: 25,
+              height: 25,
+            ),
+          ),
         ],
       ),
     );

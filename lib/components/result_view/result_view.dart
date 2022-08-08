@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wordlys/bloc/api_handler.dart';
@@ -15,9 +13,9 @@ class ResultView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        width: window.physicalSize.width,
-        color: Color(PRIMARY),
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        width: Size.infinite.width,
+        color: const Color(PRIMARY),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         child: StreamBuilder<WordData>(
           stream: apiHandler.getData,
           builder: ((context, snapshot) {
@@ -28,7 +26,7 @@ class ResultView extends StatelessWidget {
               if (data.state == DataState.Loading) {
                 return Center(
                   child: LoadingAnimationWidget.stretchedDots(
-                    color: Color(HIGHLIGHT),
+                    color: const Color(HIGHLIGHT),
                     size: 120,
                   ),
                 );
@@ -73,7 +71,7 @@ class ResultView extends StatelessWidget {
                   children: [
                     const Text(
                       "Click to copy the synonyms and antonyms!",
-                      softWrap: false,
+                      // softWrap: false,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
